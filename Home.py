@@ -11,7 +11,7 @@ def main():
 
     # ADD Data
     @st.cache_data
-    url_path="https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv"
+    url_path="https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv, encoding='utf-8'"
     df=pd.read_csv(url_path)
     st.write(df)
 
