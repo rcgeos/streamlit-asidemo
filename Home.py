@@ -16,7 +16,7 @@ def main():
     df['Year']=df['Year'].astype(int)
     
     year = 2022 
-    month = 1
+    month = 8
     landcover = 'Crop Area'
     season = 'Season 1'
     country_name = 'Guatemala'
