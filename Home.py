@@ -10,7 +10,7 @@ def main():
     st.caption(APP_SUB_TITLE)
 
     # ADD Data
-    @st.cache_data
+    #@st.cache_data
     url_path='https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv'
     df=pd.read_csv(url_path, encoding='ISO-8859-1')
     
