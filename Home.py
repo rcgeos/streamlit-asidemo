@@ -13,6 +13,7 @@ def main():
     #@st.cache_data
     url_path='https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv'
     df=pd.read_csv(url_path, encoding='ISO-8859-1')
+    df['Year']=df['Year'].astype(int)
     
     year = 2022 
     month = 1
