@@ -10,7 +10,7 @@ def main():
     st.caption(APP_SUB_TITLE)
 
     # ADD Data
-    url="https://github.com/rcgeos/streamlit-asidemo/blob/main/data/ASI_Dekad_Season1_Country_data.csv?raw=true"
+    url="https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv"
     df=pd.read_csv(url)
     st.write(df)
 
