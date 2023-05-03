@@ -9,7 +9,7 @@ def display_metric_facts(df,year, month, dekade, landcover, season, country_name
     if country_name:
         df=df[df['ISO3']==country_name]
     if isMedian:
-        calc = average_asid = df[avg_data].sum() / len(df) if len(df) else 0
+        calc = df[avg_data].sum() / len(df) if len(df) else 0
     else:
         calc = df[avg_data].sum()
     #average_asid = df[avg_data].mean()
