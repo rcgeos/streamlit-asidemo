@@ -10,9 +10,9 @@ def main():
     st.caption(APP_SUB_TITLE)
 
     # ADD Data
-    @st.cache_data
-    url_path="https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv, encoding='utf-8'"
-    df=pd.read_csv(url_path)
+    #@st.cache_data
+    url_path='https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv'
+    df=pd.read_csv(url_path, encoding='utf-8')
     st.write(df)
 
     # Display Filters and map 
