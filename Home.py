@@ -4,7 +4,7 @@ import pandas as pd
 APP_TITLE = "Agriculture Stress Index"
 APP_SUB_TITLE = "ASI DEKADAL"
 
-def display_metric_facts(df,year, month, dekade, landcover, season, country_name, isMedian=False):
+def display_metric_facts(df,year, month, dekade, landcover, season, country_name, avg_data, isMedian=False):
     df=df[(df['Year']==year) & (df['Month']==month) & (df['Dekad']==dekade) &(df['Land_Type']==landcover) & (df['Season']==season)]
     if country_name:
         df=df[df['ISO3']==country_name]
@@ -13,7 +13,7 @@ def display_metric_facts(df,year, month, dekade, landcover, season, country_name
     else:
         calc = df[avg_data].sum()
     #average_asid = df[avg_data].mean()
-    st.metric(metric_title, '{:,}'.format(round(calc)))
+    st.metric(metric_title, '{:,}'.format(calc))
 
 def main():
     st.set_page_config(APP_TITLE)
@@ -36,9 +36,9 @@ def main():
 
     col1, col2 = st.columns(2)
     with col1:
-        display_metric_facts(df, year, month, dekade, landcover, season, country_name,isMedian=False)
+        display_metric_facts(df, year, month, dekade, landcover, season, country_name, avg_data)
     with col2:
-        display_metric_facts(df, year, month, dekade, landcover, season, country_name,isMedian=True)
+        display_metric_facts(df, year, month, dekade, landcover, season, country_name, avg_data,isMedian=True)
 
     #st.write(df.shape)
     #st.write(df)
