@@ -15,15 +15,19 @@ def main():
     df=pd.read_csv(url_path, encoding='ISO-8859-1')
     df['Year']=df['Year'].astype(int)
     
+    frequency = "Dekadal"
     year = 2022 
     month = 8
     landcover = 'Crop Area'
     season = 'Season 1'
     country_name = 'Guatemala'
+    avg_data = 'Data'
+    metric_title = f"Average {frequency} ASI"
     df=df[(df['Year']==year) & (df['Month']==month) & (df['Land_Type']==landcover) & (df['Season']==season)]
     if country_name:
         df=df[df['ISO3']==country_name]
-
+    average_asid = df[avg_data].mean()
+    st.metric(metric_title, '{:,}'.format(average_asid))
     st.write(df.shape)
     st.write(df)
     st.write(df.columns)
