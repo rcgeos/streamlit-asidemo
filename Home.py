@@ -12,7 +12,7 @@ def main():
     # ADD Data
     url="https://github.com/rcgeos/streamlit-asidemo/blob/main/data/ASI_Dekad_Season1_Country_data.csv?raw=true"
     df=pd.read_csv(url)
-    st.write(df.shape)
+    st.write(df)
 
     # Display Filters and map 
 
