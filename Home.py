@@ -11,8 +11,8 @@ def main():
 
     # ADD Data
     @st.cache_data
-    url="https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv"
-    df=pd.read_csv(url)
+    url_path="https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv"
+    df=pd.read_csv(url_path)
     st.write(df)
 
     # Display Filters and map 
