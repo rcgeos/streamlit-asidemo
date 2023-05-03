@@ -10,6 +10,7 @@ def main():
     st.caption(APP_SUB_TITLE)
 
     # ADD Data
+    @st.cache_data
     url="https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv"
     df=pd.read_csv(url)
     st.write(df)
@@ -18,5 +19,5 @@ def main():
 
     # Display metrics 
 
-if __name__ == "__name__":
+if __name__ == "__main__":
     main()
