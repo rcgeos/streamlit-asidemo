@@ -23,13 +23,20 @@ def display_map(df, year, month, dekade, landcover, season):
     df=df[(df['Year']==year) & (df['Month']==month) & (df['Dekad']==dekade) &(df['Land_Type']==landcover) & (df['Season']==season)]
     
     map = folium.Map(location=[38,-96.5], zoom_start=4,scrollWheelZoom=False, tiles="CartoDB positron")
-    choropleth = folium.Choropleth(
-        geo_data='https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson',
+    # Code to open a .geojson file and store its contents in a variable
+    with open ('https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson', 'r') as jsonFile:
+        geo_data = json.load(jsonFile)
+    
+    folium.Choropleth(
+        geo_data=geo_data,
+        name="choropleth"
         data=df,
-        columns=('ISO3','Data'),
-        key_on='features.properties.name'
-    )
-    choropleth.geojson.add_to(map)
+        columns=['ISO3','Data'],
+        key_on='features.properties.name',
+        line_opacity=0.7
+    ).add_to(map)
+    folium.LayerControl().add_to(map)
+    #choropleth.geojson.add_to(map)
 
     st_map = st_folium(map, width=700, height=450)
     
