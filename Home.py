@@ -18,7 +18,8 @@ def display_metric_facts(df,year, month, dekade, landcover, season, country_name
         calc = df[avg_data].sum()
     #average_asid = df[avg_data].mean()
     st.metric(metric_title, '{:,}'.format(calc))
-def display_map(df, year, quarter, dekade):
+
+def display_map(df, year, month, dekade, landcover, season):
     df=df[(df['Year']==year) & (df['Month']==month) & (df['Dekad']==dekade) &(df['Land_Type']==landcover) & (df['Season']==season)]
     
     map = folium.Map(location=[38,-96.5], zoom_start=4,scrollWheelZoom=False, tiles="CartoDB positron")
@@ -29,7 +30,7 @@ def display_map(df, year, quarter, dekade):
         key_on='features.properties.name'
     )
     choropleth.geojson.add_to(map)
-    
+
     st_map = st_folium(map, width=700, height=450)
     
     st.write(df.shape)
@@ -61,7 +62,7 @@ def main():
     #st.write(df.columns)
 
     # Display Filters and map 
-    display_map(df, year, month, dekade)
+    display_map(df, year, month, dekade, landcover,season)
 
     # Display metrics 
     st.subheader(f'{country_name} {frequency} ASI')
