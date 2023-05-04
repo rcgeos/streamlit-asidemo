@@ -20,15 +20,24 @@ def display_metric_facts(df,year, month, dekade, landcover, season, country_name
     #average_asid = df[avg_data].mean()
     st.metric(metric_title, '{:,}'.format(calc))
 
+@st.cache_data
+def read_json(): 
+    url = "https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson"
+    gdf = gpd.read_file(url)
+    geo_data = gdf.to_json(drop_id=True)
+    return geo_data
+
 def display_map(df, year, month, dekade, landcover, season):
     df=df[(df['Year']==year) & (df['Month']==month) & (df['Dekad']==dekade) &(df['Land_Type']==landcover) & (df['Season']==season)]
     
     #map = folium.Map(location=[38,-96.5], zoom_start=4,scrollWheelZoom=False, tiles="CartoDB positron")
     map = folium.Map(location=[0,0], zoom_start=6,scrollWheelZoom=False, tiles="CartoDB positron")
     # Code to open a .geojson file and store its contents in a variable
-    url = "https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson"
-    gdf = gpd.read_file(url)
-    geo_data = gdf.to_json(drop_id=True)
+    #url = "https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson"
+    #gdf = gpd.read_file(url)
+    #geo_data = gdf.to_json(drop_id=True)
+
+    geo_data = read_json()
 
 
     #with open ('https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson', 'r') as jsonFile:
