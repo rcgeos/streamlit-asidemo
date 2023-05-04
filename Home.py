@@ -61,7 +61,7 @@ def display_map(df, year, month, dekade, landcover, season):
 
     for feature in choropleth.geojson.data['features']:
         country_name=feature['properties']['name']
-        feature['properties']['name'] = 'ASI: ' + str(df.loc[country_name,'ISO3'][0])
+        #feature['properties']['name'] = 'ASI: ' + str(df.loc[country_name,'ISO3'][0])
         #feature['properties']['dataval'] = 'ASI: ' + str(df.loc[country_name,'Data'][0])
 
     choropleth.geojson.add_child(
