@@ -34,7 +34,7 @@ def display_map(df, year, month, dekade, landcover, season):
     #    geo_data = json.load(jsonFile)
     map = folium.Map(location=[48, -102], zoom_start=3)
 
-    folium.Choropleth(
+    choropleth = folium.Choropleth(
         geo_data=geo_data,
         name="choropleth",
         data=df,
@@ -43,10 +43,19 @@ def display_map(df, year, month, dekade, landcover, season):
         fill_color="RdYlGn",
         fill_opacity=0.7,
         line_opacity=0.2,
-        legend_name="ASI, 2022",
-    ).add_to(map)
+        highlight=True,
+        legend_name= f"ASI, {year} '-' {month} '-' {dekade}"
+    )
+    choropleth.geojson.add_to(map)
 
-    folium.LayerControl().add_to(map)
+
+
+    #folium.LayerControl().add_to(map)
+
+    #for feature in chro
+    choropleth.geojson.add_child(
+        folium.features.GeoJsonTooltip(['name'], labels=False)
+    )
 
 # Display the Choropleth
 
