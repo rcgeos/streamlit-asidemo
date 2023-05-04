@@ -32,7 +32,8 @@ def display_map(df, year, month, dekade, landcover, season):
 
     #with open ('https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson', 'r') as jsonFile:
     #    geo_data = json.load(jsonFile)
-    map = folium.Map(location=[48, -102], zoom_start=3)
+    #map = folium.Map(location=[48, -102], zoom_start=3)
+    map = folium.Map(location=[0, 0], zoom_start=12)
 
     choropleth = folium.Choropleth(
         geo_data=geo_data,
@@ -48,13 +49,22 @@ def display_map(df, year, month, dekade, landcover, season):
     )
     choropleth.geojson.add_to(map)
 
+    df = df.set_index('ISO3')
+    #df.drop_duplications(inplace=True)
+
+    country_name = 'Guatemala'
+    st.write(df.loc[country_name,'ISO3'][0])
+
 
 
     #folium.LayerControl().add_to(map)
 
-    #for feature in chro
+    for feature in choropleth.geojson.data['features']:
+        country_name=feature['properties']['name']
+        feature['properties']['dataval'] = 'ASI: ' + str(df.loc[country_name,'Data'][0])
+
     choropleth.geojson.add_child(
-        folium.features.GeoJsonTooltip(['name'], labels=False)
+        folium.features.GeoJsonTooltip(['name', 'dataval'], labels=False)
     )
 
 # Display the Choropleth
@@ -62,7 +72,15 @@ def display_map(df, year, month, dekade, landcover, season):
 
     #choropleth.geojson.add_to(map)
 
+    
     st_map = st_folium(map, width=700, height=450)
+
+    country_name = ''
+    if st_map['last_active_drawing']: 
+        country_name = st_map['last_active_drawing']['properties']['name']
+    return country_name
+
+    #st.write(st_map['last_active_drawing']['properties']['name'])
     
     st.write(df.shape)
     st.write(df.head())
@@ -93,7 +111,7 @@ def main():
     #st.write(df.columns)
 
     # Display Filters and map 
-    display_map(df, year, month, dekade, landcover,season)
+    country_name = display_map(df, year, month, dekade, landcover,season)
 
     # Display metrics 
     st.subheader(f'{country_name} {frequency} ASI')
