@@ -43,7 +43,7 @@ def display_map(df, year, month, dekade, landcover, season):
     #with open ('https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson', 'r') as jsonFile:
     #    geo_data = json.load(jsonFile)
     #map = folium.Map(location=[48, -102], zoom_start=3)
-    map = folium.Map(location=[0, 0], zoom_start=12)
+    map = folium.Map(location=[0, 0], zoom_start=2)
 
     choropleth = folium.Choropleth(
         geo_data=geo_data,
