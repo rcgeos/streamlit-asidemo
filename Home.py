@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import folium
+from streamlit_folium import st_folium
 
 APP_TITLE = "Agriculture Stress Index"
 APP_SUB_TITLE = "ASI DEKADAL"
@@ -16,6 +18,21 @@ def display_metric_facts(df,year, month, dekade, landcover, season, country_name
         calc = df[avg_data].sum()
     #average_asid = df[avg_data].mean()
     st.metric(metric_title, '{:,}'.format(calc))
+def display_map(df, year, quarter, dekade):
+    df=df[(df['Year']==year) & (df['Month']==month) & (df['Dekad']==dekade) &(df['Land_Type']==landcover) & (df['Season']==season)]
+    
+    map = folium.Map(location=[38,-96.5], zoom_start=4,scrollWheelZoom=False, tiles="CartoDB positron")
+    choropleth = folium.Choropleth(
+        geo_data='data/world-administrative-boundaries.geojson',
+        data=df,
+        columns=('ISO3','Data'),
+        key_on='features.properties.name'
+    )
+    st_map = st_folium(map, width=700, height=450)
+    
+    st.write(df.shape)
+    st.write(df.head())
+    st.write(df.columns)
 
 def main():
     st.set_page_config(APP_TITLE)
@@ -36,19 +53,22 @@ def main():
     avg_data = 'Data'
     metric_title = f"Average {frequency} ASI"
 
+ 
+    #st.write(df.shape)
+    #st.write(df)
+    #st.write(df.columns)
+
+    # Display Filters and map 
+    display_map(df, year, month, dekade)
+
+    # Display metrics 
+    st.subheader(f'{country_name} {frequency} ASI')
     col1, col2 = st.columns(2)
     with col1:
         display_metric_facts(df, year, month, dekade, landcover, season, country_name, avg_data,metric_title)
     with col2:
         display_metric_facts(df, year, month, dekade, landcover, season, country_name, avg_data,metric_title, isMedian=True)
 
-    #st.write(df.shape)
-    #st.write(df)
-    #st.write(df.columns)
-
-    # Display Filters and map 
-
-    # Display metrics 
 
 if __name__ == "__main__":
     main()
