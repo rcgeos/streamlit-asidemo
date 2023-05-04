@@ -113,7 +113,9 @@ def display_time_filters(df):
     return year,month,dekade
 
 def display_state_filter(df, country_name):
-    country_list = [''] + list(df['ISO3'].unique()).sort()
+    #country_list = [''] + list(df['ISO3'].unique())
+    country_list = list(df['ISO3'].unique())
+    country_list.sort()
     country_index = country_list.index(country_name) if country_name and country_name in country_list else 0
     return st.sidebar.selectbox('Countries', country_list, country_index)
 
