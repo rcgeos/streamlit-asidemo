@@ -98,6 +98,25 @@ def display_map(df, year, month, dekade, landcover, season):
     st.write(df.head())
     st.write(df.columns)
 
+def display_time_filters(df):
+    year_list = list(df['Year'].unique())
+    year_list.sort(reverse=True)
+    year = st.sidebar.selectbox('Year', year_list, len(year_list)-1)
+    month_list = list(df['Month'].unique())
+    month_list.sort()
+    month = st.sidebar.selectbox('Month', month_list, len(month_list)-1)
+    dekade_list = list(df['Dekad'].unique())
+    dekade_list.sort()
+    dekade = st.sidebar.selectbox('Dekad', dekade_list, len(dekade_list)-1)
+    st.header(f'{year} {month} {dekade}')
+
+    return year,month,dekade
+
+def display_state_filter(df, country_name):
+    country_list = [''] + list(df['ISO3'].unique()).sort()
+    country_index = country_list.index(country_name) if country_name and country_name in country_list else 0
+    return st.sidebar.selectbox('Countries', country_list, country_index)
+
 def main():
     st.set_page_config(APP_TITLE)
     st.title(APP_TITLE)
@@ -108,14 +127,15 @@ def main():
     # ADD Data
     #@st.cache_data
     frequency = "Dekadal"
-    year = 2022 
-    month = 8
-    dekade = 3
+    #year = 2022 
+    #month = 8
+    #dekade = 3
     landcover = 'Crop Area'
     season = 'Season 1'
-    country_name = 'Guatemala'
+    #country_name = 'Guatemala'
     avg_data = 'Data'
     metric_title = f"Average {frequency} ASI"
+
 
  
     #st.write(df.shape)
@@ -123,13 +143,14 @@ def main():
     #st.write(df.columns)
 
     # Display Filters and map 
-    year_list = list(df['Year'].unique())
-    year_list.sort(reverse=True)
-    year = st.sidebar.selectbox('Year', year_list)
 
 
+    year, month, dekade = display_time_filters(df)
 
     country_name = display_map(df, year, month, dekade, landcover,season)
+    country_name = display_state_filter(df, country_name)
+
+
 
     # Display metrics 
     st.subheader(f'{country_name} {frequency} ASI')
