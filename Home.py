@@ -53,7 +53,7 @@ def display_map(df, year, month, dekade, landcover, season):
     #df.drop_duplications(inplace=True)
 
     country_name = 'Guatemala'
-    st.write(df.loc[country_name,'ISO3'][0])
+    #st.write(df.loc[country_name,'ISO3'][0])
 
 
 
