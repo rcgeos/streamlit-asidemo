@@ -29,7 +29,7 @@ def display_map(df, year, month, dekade, landcover, season):
     
     folium.Choropleth(
         geo_data=geo_data,
-        name="choropleth"
+        name="choropleth",
         data=df,
         columns=['ISO3','Data'],
         key_on='features.properties.name',
