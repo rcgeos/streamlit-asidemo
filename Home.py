@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import folium
 from streamlit_folium import st_folium
+import geopandas as gpd 
 
 APP_TITLE = "Agriculture Stress Index"
 APP_SUB_TITLE = "ASI DEKADAL"
@@ -24,18 +25,32 @@ def display_map(df, year, month, dekade, landcover, season):
     
     map = folium.Map(location=[38,-96.5], zoom_start=4,scrollWheelZoom=False, tiles="CartoDB positron")
     # Code to open a .geojson file and store its contents in a variable
-    with open ('https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson', 'r') as jsonFile:
-        geo_data = json.load(jsonFile)
-    
+    url = "https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson"
+    gdf = gpd.read_file(url)
+    geo_data = gdf.to_json(drop_id=True)
+
+
+    #with open ('https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.geojson', 'r') as jsonFile:
+    #    geo_data = json.load(jsonFile)
+    map = folium.Map(location=[48, -102], zoom_start=3)
+
     folium.Choropleth(
         geo_data=geo_data,
         name="choropleth",
         data=df,
-        columns=['ISO3','Data'],
-        key_on='features.properties.name',
-        line_opacity=0.7
+        columns=["ISO3", "Data"],
+        key_on="feature.properties.name",
+        fill_color="YlGn",
+        fill_opacity=0.7,
+        line_opacity=0.2,
+        legend_name="ASI, 2022",
     ).add_to(map)
+
     folium.LayerControl().add_to(map)
+
+# Display the Choropleth
+
+
     #choropleth.geojson.add_to(map)
 
     st_map = st_folium(map, width=700, height=450)
