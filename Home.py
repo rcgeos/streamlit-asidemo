@@ -28,6 +28,8 @@ def display_map(df, year, quarter, dekade):
         columns=('ISO3','Data'),
         key_on='features.properties.name'
     )
+    choropleth.geojson.add_to(map)
+    
     st_map = st_folium(map, width=700, height=450)
     
     st.write(df.shape)
