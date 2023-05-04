@@ -40,7 +40,7 @@ def display_map(df, year, month, dekade, landcover, season):
         data=df,
         columns=["ISO3", "Data"],
         key_on="feature.properties.name",
-        fill_color="YlGn",
+        fill_color="GnRd",
         fill_opacity=0.7,
         line_opacity=0.2,
         legend_name="ASI, 2022",
