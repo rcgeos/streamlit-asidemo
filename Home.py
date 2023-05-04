@@ -24,7 +24,7 @@ def display_map(df, year, month, dekade, landcover, season):
     
     map = folium.Map(location=[38,-96.5], zoom_start=4,scrollWheelZoom=False, tiles="CartoDB positron")
     choropleth = folium.Choropleth(
-        geo_data='https://github.com/rcgeos/streamlit-asidemo/blob/main/data/world-administrative-boundaries.geojson',
+        geo_data='https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/countries.json',
         data=df,
         columns=('ISO3','Data'),
         key_on='features.properties.name'
