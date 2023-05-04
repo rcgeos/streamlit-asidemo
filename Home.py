@@ -123,6 +123,12 @@ def main():
     #st.write(df.columns)
 
     # Display Filters and map 
+    year_list = list(df['Year'].unique())
+    year_list.sort(reverse=True)
+    year = st.sidebar.selectbox('Year', year_list)
+
+
+
     country_name = display_map(df, year, month, dekade, landcover,season)
 
     # Display metrics 
