@@ -106,8 +106,8 @@ def display_map(df, year, month, dekade, landcover, season):
     st.write(df.columns)
 
 def display_time_filters(df):
-    year_list = list(df['Year'].unique()).sort(reverse=True)
-    #year_list.sort(reverse=True)
+    year_list = list(df['Year'].unique())
+    year_list.sort(reverse=True)
     year = st.sidebar.selectbox('Year', year_list, len(year_list)-1)
     month_list = list(df['Month'].unique())
     month_list.sort()
