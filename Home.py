@@ -153,6 +153,7 @@ def main():
     #st.write(df.columns)
 
     # Display Filters and map 
+    df = read_df()
 
 
     year, month, dekade = display_time_filters(df)
