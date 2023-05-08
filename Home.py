@@ -112,9 +112,9 @@ def display_time_filters(df):
     month_list = list(df['Month'].unique())
     month_list.sort()
     month = st.sidebar.selectbox('Month', month_list, len(month_list)-1)
-    #dekade_list = list(df['Dekad'].unique())
-    #dekade_list.sort()
-    #dekade = st.sidebar.selectbox('Dekad', dekade_list, len(dekade_list)-1)
+    dekade_list = list(df['Dekad'].unique())
+    dekade_list.sort()
+    dekade = st.sidebar.selectbox('Dekad', dekade_list, len(dekade_list)-1)
     dekade = st.sidebar.selectbox('Dekad', "1","2","3")
     st.header(f'{year} {month} {dekade}')
 
