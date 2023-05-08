@@ -27,6 +27,13 @@ def read_json():
     geo_data = gdf.to_json(drop_id=True)
     return geo_data
 
+@st.cache_data
+def read_df():
+    url_path='https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv'
+    df=pd.read_csv(url_path, encoding='ISO-8859-1')
+    df['Year']=df['Year'].astype(int)
+    return df
+
 def display_map(df, year, month, dekade, landcover, season):
     df=df[(df['Year']==year) & (df['Month']==month) & (df['Dekad']==dekade) &(df['Land_Type']==landcover) & (df['Season']==season)]
     
@@ -99,15 +106,16 @@ def display_map(df, year, month, dekade, landcover, season):
     st.write(df.columns)
 
 def display_time_filters(df):
-    year_list = list(df['Year'].unique())
-    year_list.sort(reverse=True)
+    year_list = list(df['Year'].unique()).sort(reverse=True)
+    #year_list.sort(reverse=True)
     year = st.sidebar.selectbox('Year', year_list, len(year_list)-1)
     month_list = list(df['Month'].unique())
     month_list.sort()
     month = st.sidebar.selectbox('Month', month_list, len(month_list)-1)
-    dekade_list = list(df['Dekad'].unique())
-    dekade_list.sort()
-    dekade = st.sidebar.selectbox('Dekad', dekade_list, len(dekade_list)-1)
+    #dekade_list = list(df['Dekad'].unique())
+    #dekade_list.sort()
+    #dekade = st.sidebar.selectbox('Dekad', dekade_list, len(dekade_list)-1)
+    dekade = st.sidebar.selectbox('Dekad', "1","2","3")
     st.header(f'{year} {month} {dekade}')
 
     return year,month,dekade
@@ -123,9 +131,9 @@ def main():
     st.set_page_config(APP_TITLE)
     st.title(APP_TITLE)
     st.caption(APP_SUB_TITLE)
-    url_path='https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv'
-    df=pd.read_csv(url_path, encoding='ISO-8859-1')
-    df['Year']=df['Year'].astype(int)
+    #url_path='https://raw.githubusercontent.com/rcgeos/streamlit-asidemo/main/data/data_sample.csv'
+    #df=pd.read_csv(url_path, encoding='ISO-8859-1')
+    #df['Year']=df['Year'].astype(int)
     # ADD Data
     #@st.cache_data
     frequency = "Dekadal"
